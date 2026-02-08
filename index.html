@@ -1,0 +1,829 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Propose Day 💍</title>
+
+  <style>
+    :root{
+      --bgA:#fff0f7;
+      --bgB:#efe3ff;
+
+      --text:#1b1026;
+      --card:rgba(255,255,255,.82);
+
+      --purple:#7c3aed;
+      --purple2:#a78bfa;
+
+      --pink:#ff2e93;
+      --pink2:#ff7ac3;
+
+      --red1:#ff1744;
+      --red2:#ff6b8a;
+
+      --dark:#0f0a14;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0; min-height:100vh;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1100px 700px at 20% 10%, var(--bgB), transparent 55%),
+        radial-gradient(1000px 700px at 80% 20%, #ffd2ea, transparent 55%),
+        radial-gradient(900px 650px at 50% 90%, #ffe6f4, transparent 60%),
+        linear-gradient(180deg, var(--bgA), #ffffff);
+      overflow-x:hidden;
+    }
+
+    /* -------------------------
+       LOGIN SCREEN
+       ------------------------- */
+    .loginScreen{
+      position:fixed; inset:0;
+      display:flex; align-items:center; justify-content:center;
+      padding:18px;
+      z-index:99999;
+      background:
+        radial-gradient(1100px 700px at 20% 10%, var(--bgB), transparent 55%),
+        radial-gradient(1000px 700px at 80% 20%, #ffd2ea, transparent 55%),
+        linear-gradient(180deg, var(--bgA), #ffffff);
+    }
+    .loginCard{
+      width:min(520px, 96vw);
+      border-radius:24px;
+      padding:18px;
+      background:rgba(255,255,255,.88);
+      border:1px solid rgba(255,255,255,.9);
+      box-shadow: 0 22px 70px rgba(0,0,0,.12);
+      backdrop-filter: blur(10px);
+    }
+    .loginTitle{
+      font-size:22px;
+      font-weight:950;
+      margin:0;
+      letter-spacing:.2px;
+      text-align:center;
+      background: linear-gradient(90deg, var(--pink), var(--purple));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+    .loginSub{
+      text-align:center;
+      margin:10px 0 0;
+      opacity:.85;
+      font-size:14px;
+      line-height:1.4;
+    }
+    .loginHint{
+      margin:12px 0 0;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px dashed rgba(255,46,147,.35);
+      background: linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.7));
+      font-size:13px;
+      opacity:.9;
+    }
+    .field{
+      margin-top:12px;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    label{
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.3px;
+      opacity:.85;
+      text-transform:uppercase;
+    }
+    input{
+      width:100%;
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid rgba(0,0,0,.12);
+      outline:none;
+      font-size:15px;
+      background:#fff;
+    }
+    input:focus{
+      border-color: rgba(255,46,147,.55);
+      box-shadow: 0 0 0 4px rgba(255,46,147,.12);
+    }
+    .loginBtn{
+      width:100%;
+      margin-top:14px;
+      padding:12px 14px;
+      border:0;
+      border-radius:999px;
+      font-weight:950;
+      cursor:pointer;
+      color:white;
+      background: linear-gradient(135deg, var(--pink), var(--purple));
+      box-shadow: 0 14px 30px rgba(255,46,147,.22);
+      transition:.15s transform ease;
+    }
+    .loginBtn:active{transform:scale(.99)}
+    .loginErr{
+      margin-top:10px;
+      display:none;
+      padding:10px 12px;
+      border-radius:14px;
+      background:rgba(255,23,68,.10);
+      border:1px solid rgba(255,23,68,.25);
+      color:#7a0f1f;
+      font-size:13px;
+      font-weight:700;
+    }
+
+    .site{display:none;}
+
+    /* -------------------------
+       MAIN SITE
+       ------------------------- */
+    .wrap{max-width:980px; margin:0 auto; padding:28px 16px 70px; position:relative; z-index:1;}
+    header{ text-align:center; padding:28px 10px 10px; }
+    h1{margin:0; font-size:clamp(28px, 4vw, 44px); letter-spacing:.2px}
+    .sub{margin:10px auto 0; max-width:760px; font-size:clamp(14px,2vw,18px); opacity:.88}
+    .pill{
+      display:inline-block; padding:7px 12px; border-radius:999px;
+      background:rgba(255,255,255,.9); border:1px solid rgba(0,0,0,.08);
+      font-size:13px; opacity:.95;
+      margin-top:10px;
+      box-shadow: 0 10px 22px rgba(0,0,0,.06);
+    }
+
+    .card{
+      margin:22px auto 0;
+      background:var(--card);
+      backdrop-filter: blur(12px);
+      border:1px solid rgba(255,255,255,.9);
+      border-radius:22px;
+      padding:20px;
+      box-shadow: 0 18px 55px rgba(0,0,0,.10);
+    }
+
+    .grid{display:grid; gap:14px; grid-template-columns:1fr}
+    @media(min-width:820px){ .grid{grid-template-columns:1.2fr .8fr} }
+
+    .big{
+      padding:18px;
+      border-radius:18px;
+      border:1px dashed rgba(255,46,147,.30);
+      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.70));
+    }
+
+    .note{
+      margin-top:12px;
+      padding:12px 14px;
+      border-radius:14px;
+      background:#fff;
+      border:1px solid rgba(0,0,0,.08);
+      line-height:1.55;
+      box-shadow: 0 10px 22px rgba(0,0,0,.05);
+    }
+
+    .row{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+
+    button{
+      cursor:pointer;
+      border:0;
+      border-radius:999px;
+      padding:11px 16px;
+      font-weight:950;
+      transition:.15s transform ease, .15s opacity ease;
+      user-select:none;
+    }
+    button:active{transform:scale(.98)}
+
+    .btnPrimary{
+      color:#fff;
+      background: linear-gradient(135deg, var(--pink), var(--purple));
+      box-shadow: 0 14px 30px rgba(255,46,147,.22);
+    }
+    .btnOutline{
+      background:rgba(255,255,255,.9);
+      color:#111;
+      border:1px solid rgba(0,0,0,.12);
+    }
+    .btnDark{
+      background:var(--dark);
+      color:#fff;
+    }
+
+    /* YES/NO */
+    .yn{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
+    .yesBtn{
+      color:#fff;
+      background: linear-gradient(135deg, var(--pink), var(--purple));
+      box-shadow: 0 14px 30px rgba(255,46,147,.20);
+    }
+    .noBtn{background:#fff; color:#111; border:1px solid rgba(0,0,0,.12); position:relative}
+
+    .side{display:flex; flex-direction:column; gap:12px;}
+    .tile{
+      background:rgba(255,255,255,.88);
+      border:1px solid rgba(255,255,255,.9);
+      border-radius:18px;
+      padding:14px;
+      box-shadow: 0 14px 35px rgba(0,0,0,.08);
+    }
+    .tile h3{margin:0 0 6px; font-size:16px}
+    .small{font-size:14px; opacity:.88; line-height:1.45}
+    .footer{ text-align:center; margin-top:22px; opacity:.75; font-size:13px; }
+
+    /* floating hearts */
+    .heart{
+      position:fixed; left:var(--x); bottom:-40px;
+      width:18px; height:18px; transform:rotate(45deg);
+      background:linear-gradient(135deg, var(--pink), var(--purple));
+      animation: floatUp var(--t) linear forwards;
+      filter: drop-shadow(0 8px 14px rgba(255,46,147,.18));
+      z-index:0;
+      pointer-events:none;
+    }
+    .heart.red{
+      background:linear-gradient(135deg, var(--red1), var(--red2));
+      filter: drop-shadow(0 12px 18px rgba(255,23,68,.28));
+    }
+    .heart::before,.heart::after{
+      content:""; position:absolute; width:18px; height:18px; border-radius:50%;
+      background:inherit;
+    }
+    .heart::before{left:-9px; top:0}
+    .heart::after{left:0; top:-9px}
+    @keyframes floatUp{
+      0%{transform:translateY(0) rotate(45deg); opacity:0}
+      10%{opacity:1}
+      100%{transform:translateY(-110vh) rotate(45deg); opacity:0}
+    }
+
+    /* LOVE YOU pop */
+    .lovePop{
+      position:fixed;
+      left:50%; top:50%;
+      transform:translate(-50%,-50%) scale(.6);
+      opacity:0;
+      font-size:clamp(44px, 7vw, 96px);
+      font-weight:1000;
+      color:#ff1744;
+      text-shadow: 0 12px 40px rgba(255,23,68,.35);
+      z-index:99999;
+      pointer-events:none;
+      transition: opacity .25s ease, transform .25s ease;
+      white-space:nowrap;
+    }
+    .lovePop.show{
+      opacity:1;
+      transform:translate(-50%,-50%) scale(1);
+    }
+
+    /* Food */
+    .foodGrid{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
+    .foodBtn{
+      background:rgba(255,255,255,.95);
+      border:1px solid rgba(0,0,0,.12);
+      color:#111;
+    }
+    .foodBtn.selected{
+      border-color: rgba(255,46,147,.65);
+      box-shadow: 0 14px 30px rgba(255,46,147,.15);
+      background: linear-gradient(180deg, rgba(255,240,249,.95), rgba(255,255,255,.92));
+    }
+
+    /* Text area */
+    textarea{
+      width:100%;
+      margin-top:10px;
+      padding:12px 12px;
+      border-radius:16px;
+      border:1px solid rgba(0,0,0,.12);
+      outline:none;
+      font-size:15px;
+      min-height:110px;
+      resize:vertical;
+      background:rgba(255,255,255,.95);
+    }
+    textarea:focus{
+      border-color: rgba(255,46,147,.55);
+      box-shadow: 0 0 0 4px rgba(255,46,147,.12);
+    }
+
+    /* Chocolate dashboard */
+    .chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
+    .chip{
+      display:inline-flex; align-items:center; gap:6px;
+      padding:7px 10px; border-radius:999px;
+      border:1px solid rgba(0,0,0,.10);
+      background:rgba(255,255,255,.9);
+      font-size:13px; opacity:.95;
+    }
+    .dot{width:8px; height:8px; border-radius:50%; background:var(--pink)}
+    .countdown{
+      margin-top:10px; padding:12px 12px; border-radius:14px;
+      border:1px solid rgba(0,0,0,.10);
+      background:rgba(255,255,255,.92);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size:13px;
+      white-space:pre-line;
+    }
+
+    /* YES overlay (photo + ring) */
+    .overlay{
+      position:fixed; inset:0;
+      background: rgba(5,5,10,.94);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index:9999;
+      padding:18px;
+    }
+    .overlay.show{display:flex}
+    .animCard{
+      width:min(560px, 96vw);
+      border-radius:22px;
+      padding:18px;
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.05));
+      border:1px solid rgba(255,255,255,.14);
+      box-shadow: 0 25px 70px rgba(0,0,0,.45);
+      position:relative;
+      overflow:hidden;
+    }
+    .stage{
+      height:320px;
+      border-radius:18px;
+      position:relative;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.12);
+      background:
+        radial-gradient(900px 280px at 50% 0%, rgba(255,122,195,.18), transparent 55%),
+        radial-gradient(900px 280px at 30% 0%, rgba(167,139,250,.18), transparent 55%),
+        linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+    }
+    .ground{
+      position:absolute; left:0; right:0; bottom:0;
+      height:70px;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border-top:1px solid rgba(255,255,255,.10);
+    }
+    .actor{
+      position:absolute;
+      left:-160px;
+      bottom:70px;
+      width:120px; height:120px;
+      border-radius:26px;
+      overflow:hidden;
+      border:2px solid rgba(255,255,255,.22);
+      box-shadow: 0 16px 30px rgba(0,0,0,.35);
+      background:#111;
+      animation: walkIn 2.2s ease forwards;
+    }
+    .actor img{width:100%; height:100%; object-fit:cover; filter: contrast(1.05) saturate(1.08);}
+    @keyframes walkIn{
+      0%{ transform: translateX(0) scale(.98); opacity:0 }
+      8%{ opacity:1 }
+      100%{ transform: translateX(360px) scale(1); opacity:1 }
+    }
+    .ringWrap{
+      position:absolute;
+      left:50%;
+      bottom:140px;
+      transform: translateX(-50%) scale(.7);
+      opacity:0;
+      animation: ringPop 1.1s ease forwards;
+      animation-delay: 2.35s;
+      text-align:center;
+    }
+    @keyframes ringPop{
+      0%{opacity:0; transform:translateX(-50%) translateY(10px) scale(.6)}
+      100%{opacity:1; transform:translateX(-50%) translateY(0) scale(1)}
+    }
+    .ring{
+      width:56px; height:56px;
+      border-radius:50%;
+      border:4px solid rgba(255,255,255,.9);
+      box-shadow: 0 0 26px rgba(255,255,255,.25);
+      position:relative;
+      margin:0 auto;
+    }
+    .diamond{
+      position:absolute;
+      left:50%; top:-14px;
+      width:18px; height:18px;
+      background: rgba(255,255,255,.98);
+      transform: translateX(-50%) rotate(45deg);
+      border-radius:3px;
+      box-shadow: 0 0 22px rgba(255,255,255,.38);
+    }
+    .overlayTitle{
+      margin-top:12px;
+      color: rgba(255,255,255,.92);
+      text-align:center;
+      font-weight:950;
+      letter-spacing:.2px;
+      font-size:16px;
+    }
+    .closeHint{
+      margin-top:10px;
+      text-align:center;
+      font-size:12px;
+      color: rgba(255,255,255,.65);
+      user-select:none;
+    }
+
+    .waBtn{display:inline-flex; align-items:center; justify-content:center; gap:8px; width:100%; margin-top:10px}
+  </style>
+</head>
+
+<body>
+  <!-- LOGIN -->
+  <div class="loginScreen" id="loginScreen">
+    <div class="loginCard">
+      <h2 class="loginTitle">💜 Secret Entry 💖</h2>
+      <p class="loginSub">Only the real person can open this surprise 😌</p>
+
+      <div class="loginHint">
+        <b>Hint:</b><br>
+        Username is <b>Chaithra</b><br>
+        Password is <b>Birthday</b> (4 digits) 🎂
+      </div>
+
+      <div class="field">
+        <label>Username</label>
+        <input id="u" type="text" placeholder="Enter username" autocomplete="off" />
+      </div>
+
+      <div class="field">
+        <label>Password</label>
+        <input id="p" type="password" placeholder="Enter password" autocomplete="off" />
+      </div>
+
+      <button class="loginBtn" id="loginBtn">Open Surprise ✨</button>
+      <div class="loginErr" id="loginErr">Wrong username or password 🙈 Try again.</div>
+    </div>
+  </div>
+
+  <!-- MAIN SITE -->
+  <div class="site" id="site">
+    <div class="lovePop" id="lovePop">LOVE YOU ❤️</div>
+
+    <div class="wrap">
+      <header>
+        <h1>Happy Propose Day, <span id="name">My Love</span> 💍💖</h1>
+        <div class="sub">A small website… but my love is very big 💗</div>
+        <div class="pill">Tap the buttons ✨</div>
+      </header>
+
+      <div class="card grid">
+        <div class="big">
+          <h2 style="margin:0 0 8px;">A message for you 💌</h2>
+
+          <div id="message" class="note">
+            My love Chaithra ❤️,<br><br>
+            From the day you entered my life, everything became more beautiful.
+            <br><br>
+            On this Propose Day, I want to ask you from my heart 💍<br><br>
+            Will you be mine forever? 💗
+            <br><br>
+            Yours always,<br>
+            Lakshman 💖
+          </div>
+
+          <div class="row">
+            <button class="btnPrimary" id="btnLove">Check my love ❤️</button>
+            <button class="btnOutline" id="btnSecret">Show my secret 🤫</button>
+          </div>
+
+          <div id="result" class="note" style="display:none; margin-top:12px;"></div>
+
+          <div class="note" style="margin-top:12px;">
+            <b>Now the real question 😌</b><br>
+            Will you be mine forever?
+            <div class="yn" id="ynWrap">
+              <button class="yesBtn" id="yesBtn">YES 💖</button>
+              <button class="noBtn" id="noBtn">NO 🙈</button>
+            </div>
+            <div class="small" style="margin-top:8px; opacity:.85;">(Try clicking “NO” 😅)</div>
+          </div>
+
+          <div class="note" style="margin-top:12px;">
+            <b>One more thing 😋</b><br>
+            What food do you want?
+            <div class="foodGrid" id="foodGrid">
+              <button class="foodBtn" data-food="Chicken Biryani">Chicken Biryani 🍗</button>
+              <button class="foodBtn" data-food="Mutton Biryani">Mutton Biryani 🐑</button>
+              <button class="foodBtn" data-food="Chicken Fried Rice">Chicken Fried Rice 🍚</button>
+            </div>
+            <div class="small" id="foodSaved" style="margin-top:10px; display:none;">
+              ✅ Saved! Your choice: <b id="foodChoiceText"></b>
+            </div>
+          </div>
+
+          <!-- NEW TEXT BOX -->
+          <div class="note" style="margin-top:12px;">
+            <b>Do you want to tell me something? 💬</b>
+            <textarea id="msgBox" placeholder="Type here..."></textarea>
+            <div class="small" id="msgSaved" style="margin-top:10px; display:none;">
+              ✅ Saved!
+            </div>
+          </div>
+        </div>
+
+        <div class="side">
+          <div class="tile">
+            <h3>Chocolate Day Dashboard 🍫</h3>
+            <div class="small">
+              ⏳ Countdown started...<br>
+              Sweet surprise is waiting 💝
+            </div>
+
+            <div class="chips">
+              <span class="chip"><span class="dot"></span> Status: Preparing</span>
+              <span class="chip"><span class="dot"></span> For: Chaithra</span>
+              <span class="chip"><span class="dot"></span> Mode: Extra sweet</span>
+            </div>
+
+            <div id="chocoCountdown" class="countdown">Loading countdown…</div>
+
+            <button class="btnDark waBtn" id="waBtn">WhatsApp Lakshman (+1) 📞</button>
+            <div class="small" style="margin-top:6px; opacity:.75;">
+              Opens WhatsApp chat — you can tap call inside WhatsApp.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        Made with ❤️ by <span id="from">Lakshman</span>
+      </div>
+    </div>
+
+    <!-- YES overlay -->
+    <div class="overlay" id="yesOverlay" aria-hidden="true">
+      <div class="animCard">
+        <div class="stage">
+          <div class="actor">
+            <img src="me.jpg" alt="Lakshman" />
+          </div>
+          <div class="ringWrap">
+            <div class="ring"><div class="diamond"></div></div>
+          </div>
+          <div class="ground"></div>
+        </div>
+        <div class="overlayTitle" id="overlayTitle">Chaithra 💜 Will you be mine forever?</div>
+        <div class="closeHint">Tap anywhere to close</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ===== LOGIN SETTINGS =====
+    const LOGIN_USERNAME = "chaithra";
+    const LOGIN_PASSWORD = "1710";
+
+    const loginScreen = document.getElementById("loginScreen");
+    const site = document.getElementById("site");
+    const loginErr = document.getElementById("loginErr");
+
+    function tryLogin(){
+      const u = (document.getElementById("u").value || "").trim().toLowerCase();
+      const p = (document.getElementById("p").value || "").trim();
+
+      if(u === LOGIN_USERNAME && p === LOGIN_PASSWORD){
+        loginErr.style.display = "none";
+        loginScreen.style.display = "none";
+        site.style.display = "block";
+      } else {
+        loginErr.style.display = "block";
+      }
+    }
+
+    document.getElementById("loginBtn").addEventListener("click", tryLogin);
+    document.getElementById("p").addEventListener("keydown", (e)=>{ if(e.key==="Enter") tryLogin(); });
+    document.getElementById("u").addEventListener("keydown", (e)=>{ if(e.key==="Enter") tryLogin(); });
+
+    // ===== CUSTOMIZE MAIN SITE =====
+    const GIRLFRIEND_NAME = "Chaithra Sri Jasthi";
+    const FROM_NAME = "Lakshman Koduri";
+    const SECRET_LINE = "Nuvvu naa life lo special ❤️";
+
+    // WhatsApp number +1
+    const WHATSAPP_NUMBER_E164 = "19724006466"; // +1 972 400 6466
+
+    const CHOCOLATE_DAY_TARGET = new Date(new Date().getFullYear(), 1, 9, 12, 0, 0);
+
+    document.getElementById("name").textContent = GIRLFRIEND_NAME;
+    document.getElementById("from").textContent = FROM_NAME;
+    document.getElementById("overlayTitle").textContent = `${GIRLFRIEND_NAME} 💖 Will you be mine forever?`;
+
+    // ===== HEARTS =====
+    function heartBurst(count=20, color="pink"){
+      for(let i=0;i<count;i++){
+        const h=document.createElement("div");
+        h.className="heart" + (color==="red" ? " red" : "");
+        h.style.setProperty("--x", Math.floor(Math.random()*100)+"vw");
+        h.style.setProperty("--t", (3.8+Math.random()*3.2).toFixed(2)+"s");
+        h.style.opacity = (0.6 + Math.random()*0.4).toFixed(2);
+        h.style.transform = "rotate(45deg) scale("+(0.8+Math.random()*1.6).toFixed(2)+")";
+        document.body.appendChild(h);
+        setTimeout(()=>h.remove(), 8000);
+      }
+    }
+    setInterval(()=>heartBurst(2, "pink"), 2200);
+
+    const result = document.getElementById("result");
+    const lovePop = document.getElementById("lovePop");
+
+    // Check my love -> LOVE YOU + red hearts 5 sec
+    document.getElementById("btnLove").addEventListener("click", ()=>{
+      lovePop.classList.add("show");
+      const start = Date.now();
+      const timer = setInterval(()=>{
+        heartBurst(28, "red");
+        if(Date.now() - start >= 5000) clearInterval(timer);
+      }, 300);
+      setTimeout(()=>lovePop.classList.remove("show"), 5000);
+    });
+
+    // Secret
+    document.getElementById("btnSecret").addEventListener("click", ()=>{
+      result.style.display="block";
+      result.innerHTML = "🤫 <b>Secret:</b> " + SECRET_LINE;
+      heartBurst(14, "pink");
+    });
+
+    // ===== NO prank =====
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn  = document.getElementById("noBtn");
+    const ynWrap = document.getElementById("ynWrap");
+    let noTries = 0;
+
+    function moveNoButton(){
+      ynWrap.style.position = "relative";
+      noBtn.style.position = "absolute";
+
+      const wrapRect = ynWrap.getBoundingClientRect();
+      const btnRect  = noBtn.getBoundingClientRect();
+
+      if (wrapRect.height < 70) ynWrap.style.minHeight = "70px";
+
+      const maxLeft = Math.max(0, wrapRect.width - btnRect.width - 6);
+      const maxTop = Math.max(0, wrapRect.height - btnRect.height - 6);
+
+      const left = Math.floor(Math.random() * (maxLeft + 1));
+      const top  = Math.floor(Math.random() * (maxTop + 1));
+
+      noBtn.style.left = left + "px";
+      noBtn.style.top  = top + "px";
+    }
+
+    function showOnlyYesMessage(){
+      result.style.display = "block";
+      result.innerHTML = "😤 <b>Only YES</b> 💖";
+      heartBurst(18, "pink");
+    }
+
+    noBtn.addEventListener("click", (e)=>{
+      e.preventDefault();
+      noTries += 1;
+      moveNoButton();
+      if (noTries >= 3) showOnlyYesMessage();
+    });
+    noBtn.addEventListener("mouseenter", ()=>{
+      noTries += 1;
+      moveNoButton();
+      if (noTries >= 3) showOnlyYesMessage();
+    });
+    window.addEventListener("load", ()=> setTimeout(moveNoButton, 150));
+
+    // ===== YES overlay + red hearts explosion =====
+    const overlay = document.getElementById("yesOverlay");
+
+    function showYesAnimation(){
+      overlay.classList.add("show");
+      overlay.setAttribute("aria-hidden", "false");
+
+      setTimeout(()=>{
+        const start = Date.now();
+        const timer = setInterval(()=>{
+          heartBurst(30, "red");
+          if(Date.now() - start >= 5000) clearInterval(timer);
+        }, 240);
+      }, 2600);
+    }
+
+    function closeOverlay(){
+      overlay.classList.remove("show");
+      overlay.setAttribute("aria-hidden", "true");
+    }
+
+    overlay.addEventListener("click", closeOverlay);
+    document.addEventListener("keydown", (e)=>{ if(e.key === "Escape") closeOverlay(); });
+
+    yesBtn.addEventListener("click", ()=>{
+      result.style.display = "block";
+      result.innerHTML = "🥹💍 <b>YAYYY!</b><br><br>She said <b>YES</b> 💖<br>Forever & always 🫶";
+      showYesAnimation();
+    });
+
+    // ===== Food choice saved locally =====
+    const FOOD_KEY = "chaithra_food_choice";
+    const foodGrid = document.getElementById("foodGrid");
+    const foodSaved = document.getElementById("foodSaved");
+    const foodChoiceText = document.getElementById("foodChoiceText");
+
+    function markSelected(choice){
+      [...foodGrid.querySelectorAll("button")].forEach(btn=>{
+        btn.classList.toggle("selected", btn.dataset.food === choice);
+      });
+    }
+
+    function loadFood(){
+      const saved = localStorage.getItem(FOOD_KEY);
+      if(saved){
+        markSelected(saved);
+        foodChoiceText.textContent = saved;
+        foodSaved.style.display = "block";
+      }
+    }
+
+    foodGrid.addEventListener("click", (e)=>{
+      const btn = e.target.closest("button");
+      if(!btn) return;
+      const choice = btn.dataset.food;
+
+      localStorage.setItem(FOOD_KEY, choice);
+      markSelected(choice);
+
+      foodChoiceText.textContent = choice;
+      foodSaved.style.display = "block";
+      heartBurst(12, "pink");
+    });
+
+    loadFood();
+
+    // ===== Message box saved locally =====
+    const MSG_KEY = "chaithra_message_to_lakshman";
+    const msgBox = document.getElementById("msgBox");
+    const msgSaved = document.getElementById("msgSaved");
+
+    function loadMsg(){
+      const saved = localStorage.getItem(MSG_KEY);
+      if(saved){
+        msgBox.value = saved;
+        msgSaved.style.display = "block";
+      }
+    }
+
+    let saveTimer = null;
+    msgBox.addEventListener("input", ()=>{
+      msgSaved.style.display = "none";
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(()=>{
+        localStorage.setItem(MSG_KEY, msgBox.value);
+        msgSaved.style.display = "block";
+      }, 450);
+    });
+
+    loadMsg();
+
+    // ===== WhatsApp open (+1) =====
+    document.getElementById("waBtn").addEventListener("click", ()=>{
+      window.open(`https://wa.me/${WHATSAPP_NUMBER_E164}`, "_blank");
+    });
+
+    // ===== Chocolate countdown =====
+    const chocoEl = document.getElementById("chocoCountdown");
+
+    function formatCountdown(ms){
+      if(ms <= 0) return "🍫 It’s Chocolate Day! Open your surprise 😘";
+      const totalSeconds = Math.floor(ms / 1000);
+      const days = Math.floor(totalSeconds / (24*3600));
+      const hours = Math.floor((totalSeconds % (24*3600)) / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+      return `Time left for Chocolate Day:
+${String(days).padStart(2,'0')}d : ${String(hours).padStart(2,'0')}h : ${String(minutes).padStart(2,'0')}m : ${String(seconds).padStart(2,'0')}s
+🍫 Wait for the Chocolate Day surprise... 💝`;
+    }
+
+    function tickCountdown(){
+      const now = new Date();
+      let target = CHOCOLATE_DAY_TARGET;
+
+      if(now.getTime() > target.getTime() + 24*3600*1000){
+        target = new Date(now.getFullYear()+1, 1, 9, 12, 0, 0);
+      }
+
+      const diff = target.getTime() - now.getTime();
+      chocoEl.textContent = formatCountdown(diff);
+    }
+
+    tickCountdown();
+    setInterval(tickCountdown, 1000);
+  </script>
+</body>
+</html>
